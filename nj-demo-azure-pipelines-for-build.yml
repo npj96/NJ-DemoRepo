@@ -1,0 +1,28 @@
+trigger: none
+
+variables:
+  vmImageName: 'windows-latest'
+
+stages:
+  - stage: Deploy
+    jobs:
+      - job: now_change
+        pool: server
+        steps:
+        - task: ServiceNow-DevOps-Server-Change-Acceleration@1
+          inputs:
+            connectedServiceName: 'Sysintegra Devops Testing/Sysintegra Devops Testing'
+            changeRequestDetails: |
+                {
+                  "autoCloseChange": true,
+                  "autoCloseChange" : true,
+                  "attributes" : {
+                    "requested_by": {
+                   "name": "Ravishankar N"
+                   },
+                    "comments": "This update for work notes is from ADO Job",
+                    "work_notes" : "Update this to work_notes",
+                    "category": "Service",
+                    "priority" : "2"
+                   } 
+                }
