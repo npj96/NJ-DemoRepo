@@ -1,6 +1,6 @@
-trigger: none
+trigger: main
 
-variables:
+pool:
   vmImageName: 'windows-latest'
 
 stages:
@@ -9,20 +9,20 @@ stages:
       - job: now_change
         pool: server
         steps:
-        - task: ServiceNow-DevOps-Server-Change-Acceleration@1
-          inputs:
-            connectedServiceName: 'Sysintegra Devops Testing/Sysintegra Devops Testing'
-            changeRequestDetails: |
-                {
-                  "autoCloseChange": true,
-                  "autoCloseChange" : true,
-                  "attributes" : {
-                    "requested_by": {
-                   "name": "Ravishankar N"
-                   },
-                    "comments": "This update for work notes is from ADO Job",
-                    "work_notes" : "Update this to work_notes",
-                    "category": "Service",
-                    "priority" : "2"
-                   } 
-                }
+                - task: ServiceNow-DevOps-Server-Change-Acceleration@1
+                  inputs:
+                    connectedServiceName: 'dev218664-NJ- DevOps Practice-ServiceNow DevOps Service Connection'
+                    changeRequestDetails: |
+                      {
+                          "setCloseCode" : true,
+                          "autoCloseChange" : true,
+                          "attributes": {
+                            "requested_by": {
+                              "name": "test user"
+                            },
+                            "start_date": "2021-01-05 08:00:00",
+                            "end_date": "2021-01-08 08:00:00",
+                            "type": "Emergency",
+                            "short_description": "Testing CI azure pipeline"
+                          }
+                        }
