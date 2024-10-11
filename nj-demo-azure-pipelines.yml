@@ -1,11 +1,13 @@
 trigger: none
 
-pool: server
+pool: 
+ vmImage: "windows-latest"
 
 stages:
   - stage: Deploy
     jobs:
       - job: now_change
+        pool: server
         steps:
                 - task: ServiceNow-DevOps-Server-Change-Acceleration@1
                   inputs:
