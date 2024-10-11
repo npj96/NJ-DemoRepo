@@ -1,7 +1,7 @@
 trigger: none
 
 pool: 
- vmImage: "windows-latest"
+ vmImageName: "windows-latest"
 
 stages:
   - stage: Deploy
