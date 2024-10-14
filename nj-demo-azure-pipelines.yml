@@ -30,6 +30,6 @@ stages:
                     "description": "Testing DevOps desc",
                     "work_notes": "Testing DevOps worknotes",
                     "u_department": "Testing Department",
-                    "cab_required": yes
+                    "cab_required": "true"
                   }
                 }
