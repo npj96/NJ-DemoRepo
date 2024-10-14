@@ -43,7 +43,7 @@ stages:
     steps:
       - task: ServiceNow-DevOps-Server-Change-Acceleration@1
         inputs:
-          connectedServiceName: 'ServiceNow ITSM Pro Demo service connection'
+          connectedServiceName: 'dev218664-NJ- DevOps Practice-ServiceNow DevOps Service Connection'
           changeRequestDetails: |
             {
                 "setCloseCode" : true,
