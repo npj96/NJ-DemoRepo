@@ -18,7 +18,7 @@ stages:
                   "autoCloseChange" : true,
                   "attributes": {
                     "requested_by": {
-                      "name": "abel.tuter"
+                      "name": "Abel Tuter"
                     },
                     "assignment_group": {
                       "name": "Analytics Settings Managers"
