@@ -12,3 +12,23 @@ stages:
         - task: ServiceNow-DevOps-Server-Change-Acceleration@1
           inputs:
             connectedServiceName: 'dev218664-NJ- DevOps Practice-ServiceNow DevOps Service Connection'
+            changeRequestDetails: |
+              {
+                  "setCloseCode" : true,
+                  "autoCloseChange" : true,
+                  "attributes": {
+                    "requested_by": {
+                      "name": "abel.tuter"
+                    },
+                    "assignment_group": {
+                      "name": "Analytics Settings Managers"
+                    },
+                    "start_date": "2021-01-05 08:00:00",
+                    "end_date": "2021-01-08 08:00:00",
+                    "priority": 3,
+                    "short_description": "Testing DevOps SD",
+                    "description": "Testing DevOps desc",
+                    "work_notes": "Testing DevOps worknotes",
+                    "u_department": "Testing Department",
+                    "cab_required": yes
+                }
