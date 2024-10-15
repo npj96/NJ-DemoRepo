@@ -31,6 +31,6 @@ stages:
                     "work_notes": "Testing DevOps worknotes",
                     "u_department": "Testing Department",
                     "cab_required": "true",
-                    "risk": 4
+                    "risk": "Low"
                   }
                 }
