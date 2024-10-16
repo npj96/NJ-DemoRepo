@@ -29,7 +29,6 @@ stages:
                     "short_description": "Testing DevOps SD",
                     "description": "Testing DevOps desc",
                     "work_notes": "Testing DevOps worknotes",
-                    "u_department": "Testing Department",
-                    "cab_required": "true"
+                    "u_department": "Testing Department"
                   }
                 }
