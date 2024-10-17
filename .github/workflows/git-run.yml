@@ -1,0 +1,14 @@
+name: GitHub Change Deployment
+
+# on:
+#   push:
+#     branches: [ main ]
+on: workflow_dispatch
+
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:     
+      - name: Build Test
+        run: echo "Build Test"
