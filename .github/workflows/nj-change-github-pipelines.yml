@@ -13,21 +13,21 @@ jobs:
   
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set Node.js 20.x
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
         node-version: 20.x
-        
+
+    - name: Install package-lock
+      run: npm install --save moment 
     
-    
-    - name: Install dependencies
+    - name: Install npm
       run: npm ci
 
     - name: Compile
-      run: npm run build
-
+      run: npm run build --if-present
     
   changeApproval:
     name: ServiceNow Change Approval
