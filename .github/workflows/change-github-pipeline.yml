@@ -1,0 +1,13 @@
+# This is a basic workflow to help you get started with Actions
+
+name: GitHub Deployment Change Acceleration
+
+on: workflow_dispatch
+
+jobs:
+  change:
+    name: Change Request
+    runs-on: ubuntu-latest
+    steps:     
+      - name: Change Deploy
+        run: echo "Change Deploy"
