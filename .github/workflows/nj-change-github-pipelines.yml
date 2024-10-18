@@ -12,12 +12,12 @@ jobs:
   
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2
 
-    - name: Set Node.js 20.x
-      uses: actions/setup-node@v4
+    - name: Set Node.js 12.x
+      uses: actions/setup-node@v1
       with:
-        node-version: 20.x
+        node-version: 12.x
 
     - name: Install package-lock
       run: npm install --save moment
@@ -35,7 +35,7 @@ jobs:
 
     steps:     
       - name: ServiceNow Change Approval
-        uses: ServiceNow/servicenow-devops-change@v4.0.0
+        uses: ServiceNow/servicenow-devops-change@v3.1.0
         id: create
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
