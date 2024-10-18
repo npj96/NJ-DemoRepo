@@ -40,8 +40,6 @@ jobs:
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
-          #devops-integration-user-name: 'devops.integration.user'
-          #devops-integration-user-password: '6[q$oMR1OJMo3=Zs-t%$q,xwbOE7]?u7jTNRx4SvcI[[QwtPLw(*w&D_M5<(eq;sKv63Sq?X@O1!KNxB^prZwt<Ja)NL)&7)4:Tb'
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           context-github: ${{ toJSON(github) }}
