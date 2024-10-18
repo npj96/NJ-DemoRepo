@@ -1,9 +1,8 @@
 name: GitHub Change Deployment
 
-# on:
-#   push:
-#     branches: [ main ]
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    
 
 jobs:
 
@@ -21,19 +20,19 @@ jobs:
         node-version: 20.x
 
     - name: Install package-lock
-      run: npm install --save moment 
-    
+      run: npm install --save moment
+      
     - name: Install npm
       run: npm ci
 
     - name: Compile
       run: npm run build --if-present
-    
+      
   changeApproval:
     name: ServiceNow Change Approval
     needs: build
     runs-on: ubuntu-latest
-    
+
     steps:     
       - name: ServiceNow Change Approval
         uses: ServiceNow/servicenow-devops-change@v3.1.0
@@ -41,11 +40,13 @@ jobs:
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+          #devops-integration-user-name: 'devops.integration.user'
+          #devops-integration-user-password: '6[q$oMR1OJMo3=Zs-t%$q,xwbOE7]?u7jTNRx4SvcI[[QwtPLw(*w&D_M5<(eq;sKv63Sq?X@O1!KNxB^prZwt<Ja)NL)&7)4:Tb'
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           context-github: ${{ toJSON(github) }}
           job-name: 'ServiceNow Change Approval'
-          change-request: '{"setCloseCode":"true","autoCloseChange":true,"attributes":{"short_description":"Automated Software Deployment","description":"Automated Software Deployment.","assignment_group":"a715cd759f2002002920bde8132e7018","implementation_plan":"Software update is tested and results can be found in Test Summaries Tab; When the change is approved the implementation happens automated by the CICD pipeline within the change planned start and end time window.","backout_plan":"When software fails in production, the previous software release will be re-deployed.","test_plan":"Testing if the software was successfully deployed"}}'
+          change-request: '{"setCloseCode":"true","attributes":{"short_description":"Automated Software Deployment","description":"Automated Software Deployment.","assignment_group":"a715cd759f2002002920bde8132e7018","implementation_plan":"Software update is tested and results can be found in Test Summaries Tab; When the change is approved the implementation happens automated by the CICD pipeline within the change planned start and end time window.","backout_plan":"When software fails in production, the previous software release will be re-deployed.","test_plan":"Testing if the software was successfully deployed"}}'
           interval: '100'
           timeout: '3600'
           changeCreationTimeOut: '3600'
@@ -54,15 +55,14 @@ jobs:
           
       - name: Output of Change Creation
         run: echo "change-request-number = ${{ steps.create.outputs.change-request-number }} and change-request-sys-id = ${{ steps.create.outputs.change-request-sys-id }} " >> $GITHUB_OUTPUT
-    
+        
   deploy:
     name: Deploy
     needs: changeApproval
     runs-on: ubuntu-latest
-
     steps:     
       - name: Run Deployment Script
         run: echo "Deployment Finished....."
-#Run complete
-    
+
+
 
