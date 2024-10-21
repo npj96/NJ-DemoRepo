@@ -1,14 +1,36 @@
 trigger: none
 
-pool: 
- vmImageName: 'windows-latest'
-
+pool:
+  vmImage: ubuntu-latest
+ 
 stages:
-  - stage: Demo_run
-    jobs:
-      - job: now_change
-        pool: server
+  - stage: Build
+    jobs: 
+      - job: Build
         steps:
+          - script: echo "This is the planning phase of the request."
+  - stage: Dev
+    jobs:
+     - job: Initial_Source
+       steps:
+        - script: echo "This is the development phase of the request."
+  - stage: QA
+    jobs:
+     - job: Unit_Test
+       steps:
+        - script: echo "This is the code deployment phase to test instance."
+  - stage: UAT
+    jobs:
+     - job: Regression_Test
+       steps:
+        - script: echo "This is the UAT testing phase of the request."
+        
+  - stage: Prod    
+    jobs:
+     - job: Final_Deployment
+       pool: server
+       steps:
+#- script: echo This is the production deployement phase!
         - task: ServiceNow-DevOps-Server-Change-Acceleration@1
           inputs:
             connectedServiceName: 'dev218664-NJ- DevOps Practice-ServiceNow DevOps Service Connection'
@@ -22,6 +44,5 @@ stages:
                     },
                     "start_date": "2025-01-05 08:00:00",
                     "end_date": "2025-01-08 08:00:00",
-                    "template": "2e99ac42c319121055225f73e4013151"
                   }
                 }
