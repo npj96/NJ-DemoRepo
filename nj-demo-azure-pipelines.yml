@@ -33,7 +33,7 @@ stages:
 #- script: echo This is the production deployement phase!
         - task: ServiceNow-DevOps-Server-Change-Acceleration@1
           inputs:
-            connectedServiceName: 'dev218664-NJ- DevOps Practice-ServiceNow DevOps Service Connection'
+            connectedServiceName: 'dev183223-NJ- DevOps Practice-ServiceNow DevOps Service Connection'
             changeRequestDetails: |
               {
                   "setCloseCode" : true,
@@ -42,7 +42,10 @@ stages:
                     "requested_by": {
                       "name": "Abel Tuter"
                     },
-                    "start_date": "2025-01-05 08:00:00",
-                    "end_date": "2025-01-08 08:00:00",
+                    "assignment_group": {
+                      "name": "Analytics Settings Managers"
+                    },
+                    "start_date": "2024-11-05 08:00:00",
+                    "end_date": "2025-01-08 08:00:00"
                   }
                 }
