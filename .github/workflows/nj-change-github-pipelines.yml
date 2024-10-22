@@ -1,4 +1,4 @@
-name: GitHub Change Deployment 
+name: GitHub Change Deployment
 
 on:
   workflow_dispatch:
@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:     
       - name: Run Deployment Script
-        run: echo "Deployment Finished....." 
+        run: echo "Deployment Finished....."
 
 
 
