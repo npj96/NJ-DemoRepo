@@ -49,7 +49,7 @@ jobs:
           # Github Context
           context-github: ${{ toJSON(github) }}
           # JUnit xml report file name with path
-          xml-report-filename: test-demo.xml
+          #xml-report-filename: test-demo.xml
 
   registerArtifact:
     name: 'Register Artifact'
