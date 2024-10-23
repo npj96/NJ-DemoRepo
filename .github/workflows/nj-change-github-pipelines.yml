@@ -36,7 +36,7 @@ jobs:
     - name: ServiceNow DevOps Unit Test Results
       # run: echo "Test"
     # You may pin to the exact commit or the version.
-      uses: ServiceNow/servicenow-devops-test-report@v4.0
+      uses: ServiceNow/servicenow-devops-test-report@v3.1.0
       with:
           # Devops Integration Token
           devops-integration-token: ${{ secrets.SN_DEVOPS_TOKEN }}
