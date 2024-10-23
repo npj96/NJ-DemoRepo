@@ -30,8 +30,8 @@ jobs:
 
 
   registerArtifact:
-    name: build
-    needs: test
+    name: 'Register Artifact'
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: ServiceNow DevOps Register Artifact
