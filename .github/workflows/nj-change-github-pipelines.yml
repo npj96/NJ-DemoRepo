@@ -91,7 +91,7 @@ jobs:
       
   changeApproval:
     name: ServiceNow Change Approval
-    needs: build
+    needs: registerPackage
     runs-on: ubuntu-latest
 
     steps:     
