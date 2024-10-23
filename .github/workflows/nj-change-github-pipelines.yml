@@ -80,7 +80,7 @@ jobs:
               }
           ]'
 
-    registerPackage:
+  registerPackage:
       name: 'Register Package'
       needs: registerArtifact
       runs-on: ubuntu-latest
