@@ -27,10 +27,93 @@ jobs:
 
     - name: Compile
       run: npm run build --if-present
+
+  test:
+    name: 'Test'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: ServiceNow DevOps Unit Test Results
+      # run: echo "Test"
+    # You may pin to the exact commit or the version.
+      uses: ServiceNow/servicenow-devops-test-report@v4.0
+      with:
+          # Devops Integration Token
+          devops-integration-token: ${{ secrets.SN_DEVOPS_TOKEN }}
+          # ServiceNow Instance Name
+          instance-url: ${{ secrets.SN_INSTANCE_URL }}
+          # Orchestration Tool Id
+          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+          # Job Name
+          job-name: 'Test' # Should be same name as declared in 'name' clause of the current Stage
+          # Github Context
+          context-github: ${{ toJSON(github) }}
+          # JUnit xml report file name with path
+          xml-report-filename: target/surefire-reports/TEST-com.sn.TestRepo.AppTest.xml
+
+  registerArtifact:
+    name: 'Register Artifact'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: ServiceNow DevOps Register Artifact
+    # You may pin to the exact commit or the version.          
+      uses: ServiceNow/servicenow-devops-register-artifact@v4.0
+      with:
+          # Devops Integration Token
+          devops-integration-token: ${{ secrets.SN_DEVOPS_TOKEN }}
+          # ServiceNow Instance URL
+          instance-url: ${{ secrets.SN_INSTANCE_URL }}
+          # Orchestration Tool Id
+          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+          # Display Name of the Job
+          job-name: 'Register Artifact'
+          # Github Context
+          context-github: ${{ toJSON(github) }}
+          # List of Artifacts to be registered
+          artifacts: '[
+             { 
+                "name": "app-devops-cicd.jar",
+                "version": "1.${{ github.run_number }}",
+                "semanticVersion": "1.${{ github.run_number }}.0",
+                "repositoryName": "${{ github.repository }}"
+              }
+          ]'
+
+    registerPackage:
+    name: 'Register Package'
+    needs: registerArtifact
+    runs-on: ubuntu-latest
+    steps:
+    - name: ServiceNow DevOps Register Package
+    # You may pin to the exact commit or the version.           
+      uses: ServiceNow/servicenow-devops-register-package@v4.0
+      with:
+          # Devops Integration Token
+          devops-integration-token: ${{ secrets.SN_DEVOPS_TOKEN }}
+          # ServiceNow Instance URL
+          instance-url: ${{ secrets.SN_INSTANCE_URL }}
+          # Orchestration Tool Id of the tool created in ServiceNow
+          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+          # Github Context
+          context-github: ${{ toJSON(github) }}
+          # List of Artifacts in JSON format
+          artifacts: '[
+              {
+                  "name": "app-devops-cicd.jar",
+                  "version": "1.${{ github.run_number }}",
+                  "semanticVersion": "1.${{ github.run_number }}.0",
+                  "repositoryName": "${{ github.repository }}"
+              }
+          ]'
+          # Name of the Package that contains list of artifacts
+          package-name: 'app-devops-change-velocity-cicd.war'
+          # Display Name of Job
+          job-name: 'Register Package'
       
   changeApproval:
     name: ServiceNow Change Approval
-    needs: build
+    needs: registerPackage
     runs-on: ubuntu-latest
 
     steps:     
@@ -46,7 +129,8 @@ jobs:
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           context-github: ${{ toJSON(github) }}
           job-name: 'ServiceNow Change Approval'
-          change-request: '{"setCloseCode":"true","attributes":{"short_description":"Automated Software Deployment","description":"Automated Software Deployment.","assignment_group":"a715cd759f2002002920bde8132e7018","implementation_plan":"Software update is tested and results can be found in Test Summaries Tab; When the change is approved the implementation happens automated by the CICD pipeline within the change planned start and end time window.","backout_plan":"When software fails in production, the previous software release will be re-deployed.","test_plan":"Testing if the software was successfully deployed"}}'
+          change-request: '{"setCloseCode":"true","attributes":{"short_description":"Automated Software Deployment","description":"Automated Software Deployment.","assignment_group":"a715cd759f2002002920bde8132e7018","implementation_plan":"Software update is tested and results can be found in Test Summaries Tab; When the change is approved the implementation happens automated by the CICD pipeline within the change planned start and end time window.","backout_plan":"When software fails in production, the previous software release will be re-deployed."  ,"t  est_plan":"Testing if the software was successfully deployed"}}'
+          deployment-gate: '{"environment":"deployment_gate","jobName":"Deploy"}'
           interval: '100'
           timeout: '3600'
           changeCreationTimeOut: '3600'
@@ -60,6 +144,7 @@ jobs:
     name: Deploy
     needs: changeApproval
     runs-on: ubuntu-latest
+    environment: deployment_gate
     steps:     
       - name: Run Deployment Script
         run: echo "Deployment Finished....."
