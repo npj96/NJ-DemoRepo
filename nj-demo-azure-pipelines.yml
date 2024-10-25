@@ -38,10 +38,10 @@ stages:
                {
                   "artifacts": [
                      {
-                        "name": "app-devops-cicd.jar",
+                        "name": "BuildDrop",
                         "version": "1.$(build.buildId)",
                         "semanticVersion": "1.$(build.buildId).0",
-                        "repositoryName": "$(build.repository)"
+                        "repositoryName": "NJ-DemoRepo"
                      }
                   ],
                   "pipelineName": "$(system.teamProject)/$(build.definitionName)",
