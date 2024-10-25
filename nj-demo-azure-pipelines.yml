@@ -10,6 +10,23 @@ stages:
         steps:
           - script: echo "This is the planning phase of the request."
 
+  - stage: Dev
+    jobs:
+     - job: Initial_Source
+       steps:
+        - script: echo "This is the development phase of the request."
+
+  - stage: QA
+    jobs:
+     - job: Unit_Test
+       steps:
+        - script: echo "This is the code deployment phase to test instance."
+
+  - stage: UAT
+    jobs:
+     - job: Regression_Test
+       steps:
+        - script: echo "This is the UAT testing phase of the request."
 
   - stage: registerArtifact
     jobs:
