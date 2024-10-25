@@ -51,6 +51,37 @@ stages:
                   "branchName": "$(build.sourceBranchName)"
                }
              artifactToolIdExists: true
+
+  - stage: registerPackage
+    jobs:
+      - job: Register_Package
+        pool: server
+        steps:
+#- script: echo "This is the register package phase of the request"
+        - task: ServiceNow-DevOps-Server-Package-Registration@1
+          inputs:
+            connectedServiceName: 'dev183223-NJ- DevOps Practice-ServiceNow DevOps Service Connection'
+            packageRegistrationPayload: |
+              {
+                  "name": "app-devops-change-velocity-cicd.war",
+                  "artifacts": [
+                  {
+                      "name": "app-devops-cicd.jar",
+                      "repositoryName": "npj96/NJ-DemoRepo",
+                      "version": "1.$(build.buildId)",
+                      "pipelineName":"$(system.teamProject)/$(build.definitionName)",
+                      "taskExecutionNumber":"$(build.buildId)",
+                      "stageName":"$(system.jobDisplayName)",
+                "attemptNumber":"$(system.jobAttempt)",
+                    "branchName":"$(build.sourceBranchName)"
+                  }],
+                  "pipelineName":"$(system.teamProject)/$(build.definitionName)",
+                  "taskExecutionNumber":"$(build.buildId)",
+                  "stageName":"$(system.jobDisplayName)",
+               "attemptNumber":"$(system.jobAttempt)",
+                  "branchName":"$(build.sourceBranchName)"
+              }
+            artifactToolIdExists: true
         
   - stage: Prod    
     jobs:
