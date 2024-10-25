@@ -41,7 +41,7 @@ stages:
                         "name": "app-devops-cicd.jar",
                         "version": "1.$(build.buildId)",
                         "semanticVersion": "1.$(build.buildId).0",
-                        "repositoryName": "NJ-DemoRepo"
+                        "repositoryName": "npj96/NJ-DemoRepo"
                      }
                   ],
                   "pipelineName": "$(system.teamProject)/$(build.definitionName)",
