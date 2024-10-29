@@ -75,8 +75,8 @@ stages:
                       "pipelineName":"$(system.teamProject)/$(build.definitionName)",
                       "taskExecutionNumber":"$(build.buildId)",
                       "stageName":"$(system.jobDisplayName)",
-                "attemptNumber":"$(system.jobAttempt)",
-                    "branchName":"$(build.sourceBranchName)"
+                      "attemptNumber":"$(system.jobAttempt)",
+                      "branchName":"$(build.sourceBranchName)"
                   }],
                   "pipelineName":"$(system.teamProject)/$(build.definitionName)",
                   "taskExecutionNumber":"$(build.buildId)",
