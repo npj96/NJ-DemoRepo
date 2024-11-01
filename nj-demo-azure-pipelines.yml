@@ -47,11 +47,7 @@ stages:
                         "repositoryName": "npj96/NJ-DemoRepo"
                      }
                   ],
-                  "pipelineName": "$(system.teamProject)/$(build.definitionName)",
-                  "taskExecutionNumber": "$(build.buildId)",
-                  "stageName": "$(system.jobDisplayName)",
-                  "attemptNumber": "$(system.jobAttempt)",
-                  "branchName": "$(build.sourceBranchName)"
+                  
                }
              artifactToolIdExists: true
 
